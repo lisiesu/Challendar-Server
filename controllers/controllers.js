@@ -10,14 +10,28 @@ exports.getGoals = async (req, res) => {
 };
 
 exports.postGoals = async (req, res) => {
+  console.log(req.body)
   try {
-    const { title, subtitle, favourite } = req.body;
-    const newGoal = await Goal({ title, subtitle,  favourite }).save();
-    res.status(201).send(newGoal);
+    let newGoals=[];
+    for(let i=0; i < req.body.length; i++){
+      newGoals.push(await new Goal(req.body[i]).save())
+    }
+    // const newGoal = await new Goal(req.body).save();
+    res.status(201).send(newGoals);
   } catch (error) {
     res.status(400);
   }
 };
+
+// exports.selectedGoals = async (req, res) => {
+//    try {
+//     const { id } = req.params;
+//     const updatedGoal = await  Goal.findOneAndUpdate(id)
+//     res.status(201).send(updatedGoal);
+//   } catch (error) {
+//     res.status(400);
+//   }
+// };
 
 exports.deleteGoals = async (req,res) => {
   const { id } = req.params;

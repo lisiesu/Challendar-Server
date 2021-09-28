@@ -3,9 +3,9 @@ const mongoose = require('./index');
 const Schema = mongoose.Schema;
 
 const goalSchema = new Schema({
-  title: String,
-  subtitle: String,
-  favourite: Boolean
+  value: {type:String, required:true},
+  achieved: {type:Boolean, required: true, default: false},
+  date: Date
 });
 
 const Goal = mongoose.model('goals', goalSchema);
